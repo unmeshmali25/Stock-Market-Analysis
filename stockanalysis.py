@@ -82,3 +82,30 @@ for label, x, y in zip(rets.columns, rets.mean(), rets.std()):
 # Value at risk using the "Bootstap" method
 rets['AAPL'].quantile(0.05)
 # The value of this will determine 95% confidence on profit/loss percent
+
+
+
+# Value at risk using Monte Carlo method
+days = 365
+dt = 1/days
+mu = rets.mean()['GOOG']
+sigma = rets.std()['GOOG']
+
+def stock_monte_carlo(start_price, days, mu, sigma):
+    price = np.zeros(days)
+    price[0] = start_price
+    
+    shock = np.zeros(days)
+    drift = np.zeros(days)
+    
+    for x in xrange(1,days):
+        shock[x] = np.random.normal(loc = mu.dt, scale = sigma.np.sqrt(dt))
+        drift[x] = mu.dt
+        price[x] = price[x-1] + (price[x-1]*(drift[x] + shock[x]))
+        
+    return price
+
+start_price = 1205.02
+for run in range(100):
+    plt.plot(stock_monte_carlo(start_price, days, mu, sigma))
+
