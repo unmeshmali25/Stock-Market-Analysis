@@ -54,4 +54,28 @@ tech_rets = closing_df.pct_change()
 sns.jointplot('AAPL','GOOG', tech_rets,  kind = 'scatter', color = 'green')
 
 
+# Exploring pairplots
+sns.pairplot(tech_rets.dropna())
+
+
+
+
+#Analysing risk vs expected returns
+rets = tech_rets.dropna()
+
+area = np.pi*20
+
+plt.scatter(rets.mean(), rets.std(), s = area)
+
+plt.xlabel('Expected return')
+plt.ylabel('Risk')
+
+for label, x, y in zip(rets.columns, rets.mean(), rets.std()):
+    plt.annotate(
+    label,
+    xy = (x,y), xytext = (50,50),
+    textcoords = 'offset points', ha = 'right', va = 'bottom', 
+    arrowprops = dict(arrowstyle = '-', connectionstyle = 'arc3, rad = -0.3'))
+
+
 
