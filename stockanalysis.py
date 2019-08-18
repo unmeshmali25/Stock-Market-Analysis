@@ -44,3 +44,14 @@ AAPL['Daily return'].plot(legend = True, figsize = (10,4), linestyle = '--', mar
 # Plotting histogram and kde plot together
 sns.distplot(AAPL['Daily return'].dropna(), bins = 100, color = 'yellow')
 
+
+
+#Analysing returns on all the stocks in the list
+closing_df = DataReader(tech_list, 'yahoo', start, end)['Adj Close']
+tech_rets = closing_df.pct_change()
+
+# Comparing 2 stocks with each other
+sns.jointplot('AAPL','GOOG', tech_rets,  kind = 'scatter', color = 'green')
+
+
+
