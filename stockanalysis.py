@@ -79,3 +79,6 @@ for label, x, y in zip(rets.columns, rets.mean(), rets.std()):
 
 
 
+# Value at risk using the "Bootstap" method
+rets['AAPL'].quantile(0.05)
+# The value of this will determine 95% confidence on profit/loss percent
